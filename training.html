@@ -9,6 +9,73 @@
     <link rel="stylesheet" href="css/style.css">
     <style>
         .module-card {
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .module-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0d6efd, #0dcaf0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .completion-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .module-completed .completion-badge {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .module-card .btn-primary {
+            background: linear-gradient(135deg, #0d6efd, #0dcaf0);
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .module-card .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(13, 110, 253, 0.3);
+        }
+
+        .progress-overview {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-overview .progress {
+            height: 10px;
+            border-radius: 5px;
+        }
+
+        .module-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             height: 100%;
             cursor: pointer;
@@ -159,6 +226,17 @@
 
     <!-- Modules Grid -->
     <div class="container py-5">
+        <div class="progress-overview">
+            <h3>Your Progress</h3>
+            <div class="progress mb-2">
+                <div class="progress-bar" id="overallProgress" role="progressbar" style="width: 0%"></div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <small class="text-muted">Completed: <span id="completedCount">0</span> of <span id="totalModules">0</span> modules</small>
+                <small class="text-muted">Overall Progress: <span id="progressPercentage">0%</span></small>
+            </div>
+        </div>
+
         <div class="row g-4" id="modulesGrid">
             <!-- Modules will be loaded here by JavaScript -->
         </div>
@@ -184,8 +262,77 @@
     <script src="js/moduleConfig.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            loadModules();
-            setupFilters();
+            const modulesGrid = document.getElementById('modulesGrid');
+            const modules = window.moduleConfig.modules;
+            const completedModules = JSON.parse(localStorage.getItem('completedModules') || '[]');
+
+            // Update progress overview
+            const totalModules = Object.keys(modules).length;
+            const completedCount = completedModules.length;
+            const progressPercentage = Math.round((completedCount / totalModules) * 100);
+
+            document.getElementById('completedCount').textContent = completedCount;
+            document.getElementById('totalModules').textContent = totalModules;
+            document.getElementById('progressPercentage').textContent = `${progressPercentage}%`;
+            document.getElementById('overallProgress').style.width = `${progressPercentage}%`;
+
+            // Create module cards
+            Object.values(modules).forEach(module => {
+                const isCompleted = completedModules.includes(module.id);
+                const col = document.createElement('div');
+                col.className = 'col-md-4';
+                
+                const difficultyClass = `difficulty-${module.difficulty.toLowerCase()}`;
+                const prerequisites = module.prerequisites.length > 0 
+                    ? `<div class="prerequisites mt-2">
+                        <small class="text-muted">
+                            <i class="fas fa-info-circle"></i> Prerequisites: ${module.prerequisites.join(', ')}
+                        </small>
+                       </div>`
+                    : '';
+                
+                const topics = module.topics.length > 0
+                    ? `<div class="module-topics">
+                        <small>
+                            <strong>Topics covered:</strong>
+                            <ul>
+                                ${module.topics.slice(0, 2).map(topic => `<li>${topic}</li>`).join('')}
+                                ${module.topics.length > 2 ? `<li>+${module.topics.length - 2} more...</li>` : ''}
+                            </ul>
+                        </small>
+                       </div>`
+                    : '';
+                
+                col.innerHTML = `
+                    <div class="card module-card h-100 ${isCompleted ? 'module-completed' : ''}">
+                        <div class="completion-badge">
+                            <i class="fas fa-check"></i> Completed
+                        </div>
+                        <div class="card-body">
+                            <div class="module-difficulty">
+                                <span class="badge bg-light text-dark">
+                                    <i class="fas fa-layer-group ${difficultyClass}"></i> ${module.difficulty}
+                                </span>
+                            </div>
+                            <div class="module-icon">
+                                <i class="fas ${module.icon} ${difficultyClass}"></i>
+                            </div>
+                            <h3 class="card-title h5">${module.title}</h3>
+                            <p class="card-text">${module.description}</p>
+                            <div class="module-duration">
+                                <i class="fas fa-clock"></i> ${module.duration}
+                            </div>
+                            ${topics}
+                            ${prerequisites}
+                            <a href="modules/${module.id}.html" class="btn btn-primary mt-3">
+                                ${isCompleted ? 'Review Module' : 'Start Module'}
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                modulesGrid.appendChild(col);
+            });
         });
 
         function loadModules(searchTerm = '', difficulty = '', duration = '') {

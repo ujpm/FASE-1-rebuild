@@ -3,12 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heart Attack Response - FASE-1</title>
+    <title>Cardiac Care - FASE-1</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .module-navigation {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .module-navigation .btn {
+            min-width: 100px;
+        }
+
+        .module-navigation .btn i {
+            margin: 0 5px;
+        }
+
+        .completion-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            display: none;
+        }
+
+        .module-completed .completion-badge {
+            display: block;
+        }
+
+        .module-content {
+            padding-top: 70px;
+        }
+
+        .module-section {
+            display: none;
+        }
+
+        .module-section.active {
+            display: block;
+        }
+
+        .nav-pills .nav-link {
+            color: #333;
+            border-radius: 20px;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-pills .nav-link:hover {
+            background: rgba(13, 110, 253, 0.1);
+        }
+
+        .nav-pills .nav-link.active {
+            background: #0d6efd;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -24,13 +91,10 @@
                         <a class="nav-link" href="../index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="../training.html">Training Modules</a>
+                        <a class="nav-link" href="../training.html">Training</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../about.html">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../contact.html">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -38,184 +102,152 @@
     </nav>
 
     <!-- Module Content -->
-    <div class="module-content pt-5 mt-5">
-        <div class="container">
+    <div class="container py-4 module-content">
+        <div class="completion-badge">
+            <i class="fas fa-check"></i> Completed
+        </div>
+
+        <div class="row">
             <!-- Module Header -->
-            <div class="row mb-5">
-                <div class="col-lg-8">
-                    <h1 class="display-5 mb-3">Heart Attack Response</h1>
-                    <p class="lead">Learn how to recognize and respond to heart attack emergencies using locally available resources.</p>
-                </div>
-                <div class="col-lg-4">
-                    <div class="progress-card card">
-                        <div class="card-body">
-                            <h5>Module Progress</h5>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 0%"></div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="col-12 mb-4">
+                <h1><i class="fas fa-heart text-danger"></i> Cardiac Care</h1>
+                <div class="module-meta">
+                    <span class="badge bg-primary me-2"><i class="fas fa-clock"></i> 2 hours</span>
+                    <span class="badge bg-secondary me-2"><i class="fas fa-layer-group"></i> Intermediate</span>
+                    <span class="badge bg-info"><i class="fas fa-book"></i> 4 Topics</span>
                 </div>
             </div>
 
-            <!-- Module Sections -->
-            <div class="row">
-                <div class="col-lg-8">
-                    <!-- Section 1: Introduction -->
-                    <section class="module-section mb-5" id="introduction">
-                        <h2>Introduction to Heart Attacks</h2>
-                        <div class="ratio ratio-16x9 mb-4">
-                            <iframe src="https://www.youtube.com/embed/placeholder" title="Understanding Heart Attacks" allowfullscreen></iframe>
-                        </div>
-                        <p>A heart attack occurs when blood flow to part of the heart muscle is blocked. Understanding the signs and responding quickly can save lives.</p>
-                    </section>
+            <!-- Module Navigation -->
+            <div class="col-md-3">
+                <nav class="module-nav sticky-top" style="top: 80px;">
+                    <div class="nav flex-column nav-pills">
+                        <a class="nav-link active" href="#introduction">Introduction</a>
+                        <a class="nav-link" href="#signs">Signs & Symptoms</a>
+                        <a class="nav-link" href="#response">Emergency Response</a>
+                        <a class="nav-link" href="#prevention">Prevention</a>
+                        <a class="nav-link" href="#quiz">Knowledge Check</a>
+                    </div>
+                </nav>
+            </div>
 
-                    <!-- Section 2: Recognizing Symptoms -->
-                    <section class="module-section mb-5" id="symptoms">
-                        <h2>Recognizing Symptoms</h2>
-                        <div class="symptoms-list">
+            <!-- Module Sections -->
+            <div class="col-md-9">
+                <!-- Introduction -->
+                <section id="introduction" class="module-section active">
+                    <h2>Introduction to Cardiac Care</h2>
+                    <p>Cardiac emergencies are life-threatening situations that require immediate attention. Understanding how to recognize and respond to these emergencies can mean the difference between life and death.</p>
+                    
+                    <div class="learning-objectives mt-4">
+                        <h5><i class="fas fa-bullseye"></i> Learning Objectives</h5>
+                        <ul>
+                            <li>Identify signs and symptoms of cardiac emergencies</li>
+                            <li>Learn proper emergency response procedures</li>
+                            <li>Understand prevention strategies</li>
+                            <li>Practice decision-making in emergency scenarios</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Signs & Symptoms -->
+                <section id="signs" class="module-section">
+                    <h2>Signs & Symptoms</h2>
+                    <div class="alert alert-warning">
+                        <h5><i class="fas fa-exclamation-triangle"></i> Common Warning Signs</h5>
+                        <ul>
+                            <li>Chest pain or discomfort</li>
+                            <li>Shortness of breath</li>
+                            <li>Nausea and cold sweats</li>
+                            <li>Pain in arms, back, neck, or jaw</li>
+                            <li>Lightheadedness or fainting</li>
+                        </ul>
+                    </div>
+                    <p>It's essential to note that symptoms can vary between individuals, and some people may experience atypical symptoms.</p>
+                </section>
+
+                <!-- Emergency Response -->
+                <section id="response" class="module-section">
+                    <h2>Emergency Response</h2>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Immediate Actions</h5>
+                            <ol>
+                                <li>Call emergency services (911)</li>
+                                <li>Help the person into a comfortable position</li>
+                                <li>Loosen tight clothing</li>
+                                <li>Stay with the person and monitor their condition</li>
+                                <li>Be prepared to perform CPR if necessary</li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Prevention -->
+                <section id="prevention" class="module-section">
+                    <h2>Prevention Strategies</h2>
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="card mb-3">
                                 <div class="card-body">
-                                    <h5 class="card-title">Common Symptoms</h5>
-                                    <ul class="list-unstyled">
-                                        <li><i class="bi bi-check-circle text-success"></i> Chest pain or pressure</li>
-                                        <li><i class="bi bi-check-circle text-success"></i> Pain in arms, neck, jaw, or back</li>
-                                        <li><i class="bi bi-check-circle text-success"></i> Shortness of breath</li>
-                                        <li><i class="bi bi-check-circle text-success"></i> Cold sweat</li>
-                                        <li><i class="bi bi-check-circle text-success"></i> Nausea</li>
+                                    <h5>Lifestyle Changes</h5>
+                                    <ul>
+                                        <li>Regular exercise</li>
+                                        <li>Healthy diet</li>
+                                        <li>Stress management</li>
+                                        <li>Regular check-ups</li>
                                     </ul>
                                 </div>
                             </div>
-                            <img src="../images/heart-attack-symptoms.jpg" alt="Heart Attack Symptoms Diagram" class="img-fluid rounded mb-3">
                         </div>
-                    </section>
-
-                    <!-- Section 3: Immediate Response -->
-                    <section class="module-section mb-5" id="response">
-                        <h2>Immediate Response Steps</h2>
-                        <div class="accordion" id="responseSteps">
-                            <div class="accordion-item">
-                                <h3 class="accordion-header">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#step1">
-                                        Step 1: Call for Emergency Help
-                                    </button>
-                                </h3>
-                                <div id="step1" class="accordion-collapse collapse show">
-                                    <div class="accordion-body">
-                                        <p>Call your local emergency number immediately. If unavailable, arrange fast transportation to the nearest hospital.</p>
-                                        <div class="alert alert-info">
-                                            <strong>Local Emergency Numbers:</strong>
-                                            <ul class="mb-0">
-                                                <li>General Emergency: 112</li>
-                                                <li>Ambulance: [Local Number]</li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5>Risk Factors to Monitor</h5>
+                                    <ul>
+                                        <li>Blood pressure</li>
+                                        <li>Cholesterol levels</li>
+                                        <li>Blood sugar</li>
+                                        <li>Body weight</li>
+                                    </ul>
                                 </div>
-                            </div>
-                            <!-- Add more accordion items for other steps -->
-                        </div>
-                    </section>
-
-                    <!-- Section 4: Using Local Resources -->
-                    <section class="module-section mb-5" id="resources">
-                        <h2>Using Available Resources</h2>
-                        <div class="row g-4">
-                            <div class="col-md-6">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Aspirin (if available)</h5>
-                                        <p class="card-text">If the person is not allergic to aspirin and it's readily available, they may chew one adult aspirin (325 mg) or four low-dose aspirins (81 mg).</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Comfortable Position</h5>
-                                        <p class="card-text">Help the person find a comfortable semi-sitting position, supported by pillows or any firm cushioning available.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-
-                <!-- Sidebar -->
-                <div class="col-lg-4">
-                    <div class="sidebar">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <h5 class="card-title">Module Contents</h5>
-                                <nav class="nav flex-column">
-                                    <a class="nav-link" href="#introduction">Introduction</a>
-                                    <a class="nav-link" href="#symptoms">Recognizing Symptoms</a>
-                                    <a class="nav-link" href="#response">Immediate Response</a>
-                                    <a class="nav-link" href="#resources">Using Local Resources</a>
-                                </nav>
-                            </div>
-                        </div>
-
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <h5 class="card-title">Downloads</h5>
-                                <ul class="list-unstyled">
-                                    <li class="mb-2">
-                                        <a href="#" class="btn btn-outline-primary btn-sm w-100">
-                                            <i class="bi bi-file-pdf"></i> Quick Reference Guide
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="btn btn-outline-primary btn-sm w-100">
-                                            <i class="bi bi-image"></i> Symptoms Infographic
-                                        </a>
-                                    </li>
-                                </ul>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
+
+                <!-- Quiz -->
+                <section id="quiz" class="module-section">
+                    <h2>Knowledge Check</h2>
+                    <div class="quiz-container">
+                        <!-- Quiz questions will be loaded dynamically -->
+                        <div class="alert alert-info">
+                            <p>Complete all questions to finish this module.</p>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer bg-dark text-light py-4 mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h5>FASE-1</h5>
-                    <p>Fast Servers, First Savers</p>
-                </div>
-                <div class="col-md-4">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="../modules.html" class="text-light">Training Modules</a></li>
-                        <li><a href="../about.html" class="text-light">About Us</a></li>
-                        <li><a href="../contact.html" class="text-light">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5>Connect With Us</h5>
-                    <div class="social-links">
-                        <a href="#" class="text-light me-2"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="text-light me-2"><i class="bi bi-twitter"></i></a>
-                        <a href="#" class="text-light me-2"><i class="bi bi-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <hr class="mt-4">
-            <div class="text-center">
-                <p class="mb-0">&copy; 2024 FASE-1. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    <!-- Module Navigation -->
+    <div class="module-navigation">
+        <a href="../training.html" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Training
+        </a>
+        <button class="btn btn-outline-primary" id="prevModule">
+            <i class="fas fa-chevron-left"></i> Previous
+        </button>
+        <button class="btn btn-outline-primary" id="nextModule">
+            Next <i class="fas fa-chevron-right"></i>
+        </button>
+        <button class="btn btn-success" id="completeModule">
+            Complete <i class="fas fa-check"></i>
+        </button>
+    </div>
 
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
-    <!-- Bootstrap JS and Popper.js -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom JS -->
-    <script src="../js/main.js"></script>
+    <script src="../js/moduleConfig.js"></script>
+    <script src="../js/moduleNavigation.js"></script>
 </body>
 </html>

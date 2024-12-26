@@ -194,11 +194,53 @@ const moduleConfig = {
 
     checkPrerequisites(moduleId) {
         const module = this.modules[moduleId];
-        if (!module) return false;
-        
-        // In a real app, you'd check user's completed modules
-        // For now, we'll just return true
-        return true;
+        if (!module || !module.prerequisites || module.prerequisites.length === 0) {
+            return true;
+        }
+
+        const completedModules = JSON.parse(localStorage.getItem('completedModules') || '[]');
+        return module.prerequisites.every(prereq => completedModules.includes(prereq));
+    },
+
+    getNextModule(currentModuleId) {
+        const moduleIds = Object.keys(this.modules);
+        const currentIndex = moduleIds.indexOf(currentModuleId);
+        if (currentIndex < moduleIds.length - 1) {
+            return this.modules[moduleIds[currentIndex + 1]];
+        }
+        return null;
+    },
+
+    getPreviousModule(currentModuleId) {
+        const moduleIds = Object.keys(this.modules);
+        const currentIndex = moduleIds.indexOf(currentModuleId);
+        if (currentIndex > 0) {
+            return this.modules[moduleIds[currentIndex - 1]];
+        }
+        return null;
+    },
+
+    isModuleCompleted(moduleId) {
+        const completedModules = JSON.parse(localStorage.getItem('completedModules') || '[]');
+        return completedModules.includes(moduleId);
+    },
+
+    markModuleCompleted(moduleId) {
+        let completedModules = JSON.parse(localStorage.getItem('completedModules') || '[]');
+        if (!completedModules.includes(moduleId)) {
+            completedModules.push(moduleId);
+            localStorage.setItem('completedModules', JSON.stringify(completedModules));
+        }
+    },
+
+    getProgress() {
+        const completedModules = JSON.parse(localStorage.getItem('completedModules') || '[]');
+        const totalModules = Object.keys(this.modules).length;
+        return {
+            completed: completedModules.length,
+            total: totalModules,
+            percentage: Math.round((completedModules.length / totalModules) * 100)
+        };
     }
 };
 

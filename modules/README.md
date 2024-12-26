@@ -2,30 +2,43 @@
 
 This directory contains all the training modules for the FASE-1 platform.
 
+## Current Modules
+
+1. Cardiac Care
+2. CPR and AED
+3. Choking
+4. Asthma
+5. Seizures
+6. Environmental Emergencies
+7. Poisoning
+8. Bleeding Control
+9. Basic Life Support
+10. Fractures
+11. Childbirth
+
 ## Directory Structure
 
 ```
 modules/
 ├── template.html          # Base template for all module pages
-├── cardiac/              # Cardiac emergency module
-│   ├── images/           # Module-specific images
-│   ├── videos/           # Module-specific videos
-│   └── cardiac.html      # Module main page
-├── trauma/               # Trauma response module
-│   ├── images/
-│   ├── videos/
-│   └── trauma.html
-└── basic-life-support/   # Basic life support module
-    ├── images/
-    ├── videos/
-    └── basic-life-support.html
+├── cardiac.html           # Cardiac emergency module
+├── cpr-aed.html           # CPR and AED module
+├── choking.html           # Choking response module
+├── asthma.html            # Asthma management module
+├── seizures.html          # Seizure response module
+├── environmental.html     # Environmental emergencies module
+├── poisoning.html         # Poisoning response module
+├── bleeding-control.html  # Bleeding control module
+├── basic_life_support.html # Basic life support module
+├── fractures.html         # Fracture management module
+└── childbirth.html        # Childbirth emergency module
 ```
 
 ## Module Development Guidelines
 
 1. Each module should:
    - Follow the template.html structure
-   - Include proper data-module-id and data-section-id attributes
+   - Include proper `data-module-id` and `data-section-id` attributes
    - Implement all required sections (theory, practice, quiz)
    - Include appropriate media resources
 
@@ -42,15 +55,13 @@ modules/
 
 4. Progress Tracking:
    - All sections must include proper tracking attributes
-   - Prerequisites must be defined in moduleConfig.js
+   - Prerequisites must be defined in `moduleConfig.js`
    - Progress saves automatically to localStorage
 
 ## Adding New Modules
 
-1. Create new directory under modules/
-2. Copy template.html as base
-3. Update moduleConfig.js with new module data
-4. Add required resources
-5. Test all interactive elements
-6. Verify progress tracking
-7. Test prerequisites if any
+1. Create a new HTML file in this directory
+2. Copy `template.html` as a base
+3. Customize content for the specific emergency type
+4. Update main README.md to include the new module
+5. Ensure all tracking and navigation scripts are properly implemented

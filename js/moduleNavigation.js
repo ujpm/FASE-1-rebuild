@@ -5,6 +5,7 @@ class ModuleNavigation {
         this.progressBar = null;
         this.prevButton = null;
         this.nextButton = null;
+        this.moduleId = window.location.pathname.split('/').pop().replace('.html', '');
     }
 
     initialize() {
@@ -13,15 +14,17 @@ class ModuleNavigation {
             .map(link => link.getAttribute('href').substring(1));
 
         // Get UI elements
-        this.progressBar = document.getElementById('moduleProgress');
-        this.prevButton = document.getElementById('prevSection');
-        this.nextButton = document.getElementById('nextSection');
+        this.progressBar = document.querySelector('.progress-bar');
+        this.prevButton = document.getElementById('prevModule');
+        this.nextButton = document.getElementById('nextModule');
 
         // Set up navigation event listeners
         this.setupNavigation();
         
-        // Initialize first section
+        // Initialize first section and check completion
         this.showSection(this.currentSection);
+        this.checkModuleCompletion();
+        this.updateNavigationButtons();
     }
 
     setupNavigation() {
@@ -34,29 +37,19 @@ class ModuleNavigation {
             });
         });
 
-        // Handle prev/next buttons
-        this.prevButton.addEventListener('click', () => {
-            const currentIndex = this.sections.indexOf(this.currentSection);
-            if (currentIndex > 0) {
-                this.showSection(this.sections[currentIndex - 1]);
-            }
-        });
+        // Handle module navigation
+        if (this.prevButton) {
+            this.prevButton.addEventListener('click', () => this.navigateModule('prev'));
+        }
+        if (this.nextButton) {
+            this.nextButton.addEventListener('click', () => this.navigateModule('next'));
+        }
 
-        this.nextButton.addEventListener('click', () => {
-            const currentIndex = this.sections.indexOf(this.currentSection);
-            if (currentIndex < this.sections.length - 1) {
-                this.showSection(this.sections[currentIndex + 1]);
-            }
-        });
-
-        // Handle keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft' && !this.prevButton.disabled) {
-                this.prevButton.click();
-            } else if (e.key === 'ArrowRight' && !this.nextButton.disabled) {
-                this.nextButton.click();
-            }
-        });
+        // Handle completion button
+        const completeButton = document.getElementById('completeModule');
+        if (completeButton) {
+            completeButton.addEventListener('click', () => this.completeModule());
+        }
     }
 
     showSection(sectionId) {
@@ -70,16 +63,9 @@ class ModuleNavigation {
         if (targetSection) {
             targetSection.classList.add('active');
             this.currentSection = sectionId;
-
-            // Update URL hash without scrolling
-            history.replaceState(null, null, `#${sectionId}`);
+            this.updateProgress();
         }
 
-        // Update navigation
-        this.updateNavigation(sectionId);
-    }
-
-    updateNavigation(sectionId) {
         // Update nav links
         document.querySelectorAll('.nav-link').forEach(link => {
             link.classList.remove('active');
@@ -87,22 +73,71 @@ class ModuleNavigation {
                 link.classList.add('active');
             }
         });
-
-        // Update buttons
-        const currentIndex = this.sections.indexOf(sectionId);
-        this.prevButton.disabled = currentIndex === 0;
-        this.nextButton.disabled = currentIndex === this.sections.length - 1;
-
-        // Update progress bar
-        const progress = ((currentIndex + 1) / this.sections.length) * 100;
-        this.progressBar.style.width = `${progress}%`;
     }
 
-    // Handle browser back/forward
-    handlePopState() {
-        const hash = window.location.hash.substring(1);
-        if (hash && this.sections.includes(hash)) {
-            this.showSection(hash);
+    updateProgress() {
+        if (this.progressBar) {
+            const currentIndex = this.sections.indexOf(this.currentSection);
+            const progress = ((currentIndex + 1) / this.sections.length) * 100;
+            this.progressBar.style.width = `${progress}%`;
+            this.progressBar.setAttribute('aria-valuenow', progress);
+        }
+    }
+
+    navigateModule(direction) {
+        const modules = Object.keys(window.moduleConfig.modules);
+        const currentIndex = modules.indexOf(this.moduleId);
+        
+        let nextIndex;
+        if (direction === 'next') {
+            nextIndex = currentIndex + 1;
+        } else {
+            nextIndex = currentIndex - 1;
+        }
+
+        // Check if navigation is possible
+        if (nextIndex >= 0 && nextIndex < modules.length) {
+            window.location.href = `${modules[nextIndex]}.html`;
+        }
+
+        this.updateNavigationButtons();
+    }
+
+    updateNavigationButtons() {
+        const modules = Object.keys(window.moduleConfig.modules);
+        const currentIndex = modules.indexOf(this.moduleId);
+        
+        if (this.prevButton) {
+            this.prevButton.disabled = currentIndex === 0;
+        }
+        if (this.nextButton) {
+            this.nextButton.disabled = currentIndex === modules.length - 1;
+        }
+    }
+
+    completeModule() {
+        // Get completed modules from localStorage
+        let completedModules = JSON.parse(localStorage.getItem('completedModules') || '[]');
+        
+        // Add current module if not already completed
+        if (!completedModules.includes(this.moduleId)) {
+            completedModules.push(this.moduleId);
+            localStorage.setItem('completedModules', JSON.stringify(completedModules));
+        }
+
+        // Update UI
+        document.querySelector('.module-content').classList.add('module-completed');
+        
+        // Navigate back to training page
+        setTimeout(() => {
+            window.location.href = '../training.html';
+        }, 1000);
+    }
+
+    checkModuleCompletion() {
+        const completedModules = JSON.parse(localStorage.getItem('completedModules') || '[]');
+        if (completedModules.includes(this.moduleId)) {
+            document.querySelector('.module-content').classList.add('module-completed');
         }
     }
 }
@@ -111,7 +146,4 @@ class ModuleNavigation {
 document.addEventListener('DOMContentLoaded', () => {
     const moduleNav = new ModuleNavigation();
     moduleNav.initialize();
-
-    // Handle browser back/forward
-    window.addEventListener('popstate', () => moduleNav.handlePopState());
 });
