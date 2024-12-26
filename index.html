@@ -204,7 +204,7 @@
                         <a class="nav-link" href="training.html">Training</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="navigateToPage('emergency')">Emergency</a>
+                        <a class="nav-link" href="emergency.html">Emergency</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#about">About</a>
@@ -229,11 +229,11 @@
                     "In the critical moments between emergency and professional help, knowledge saves lives."
                 </div>
                 <div class="cta-buttons">
-                    <button class="btn btn-danger btn-lg pulse-button" onclick="navigateToPage('emergency')">
-                        Report Emergency
-                    </button>
                     <button class="btn btn-primary btn-lg" onclick="window.location.href='training.html'">
                         Start Training
+                    </button>
+                    <button class="btn btn-danger btn-lg pulse-button" onclick="window.location.href='emergency.html'">
+                        Report Emergency
                     </button>
                 </div>
             </div>
@@ -358,121 +358,6 @@
             </div>
         </section>
 
-        <!-- Emergency Page -->
-        <div id="emergencyPage" style="display: none;">
-            <div class="emergency-header bg-danger text-white py-4">
-                <div class="container d-flex justify-content-between align-items-center">
-                    <div>
-                        <h1><i class="fas fa-exclamation-triangle"></i> Emergency Response</h1>
-                        <p class="mb-0">Select the type of emergency you're reporting</p>
-                    </div>
-                    <button class="btn-close btn-close-white" onclick="closeEmergencyModal()"></button>
-                </div>
-            </div>
-            
-            <div class="container my-5">
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <div class="emergency-types">
-                            <div class="row g-4">
-                                <div class="col-md-4">
-                                    <button class="emergency-type w-100" onclick="showEmergencyForm('medical')">
-                                        <i class="fas fa-user-md fa-3x mb-3"></i>
-                                        <h3>Medical</h3>
-                                        <p>Medical emergencies and first aid</p>
-                                    </button>
-                                </div>
-                                <div class="col-md-4">
-                                    <button class="emergency-type w-100" onclick="showEmergencyForm('accident')">
-                                        <i class="fas fa-car-crash fa-3x mb-3"></i>
-                                        <h3>Accident</h3>
-                                        <p>Vehicle accidents and collisions</p>
-                                    </button>
-                                </div>
-                                <div class="col-md-4">
-                                    <button class="emergency-type w-100" onclick="showEmergencyForm('fire')">
-                                        <i class="fas fa-fire fa-3x mb-3"></i>
-                                        <h3>Fire</h3>
-                                        <p>Fire emergencies and evacuation</p>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div id="emergency-form" class="mt-5" style="display: none;">
-                            <!-- Emergency form will be loaded here -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Emergency Modal -->
-        <div id="emergencyModal" class="modal-fullscreen">
-            <div class="emergency-content">
-                <div class="emergency-header bg-danger text-white py-4">
-                    <div class="container d-flex justify-content-between align-items-center">
-                        <div>
-                            <h1><i class="fas fa-exclamation-triangle"></i> Emergency Response</h1>
-                            <p class="mb-0">Select the type of emergency you're reporting</p>
-                        </div>
-                        <button class="btn-close btn-close-white" onclick="closeEmergencyModal()"></button>
-                    </div>
-                </div>
-                
-                <div class="container my-5">
-                    <div class="row justify-content-center">
-                        <div class="col-md-8">
-                            <div class="emergency-types">
-                                <div class="row g-4">
-                                    <div class="col-md-4">
-                                        <button class="emergency-type w-100" onclick="showEmergencyForm('medical')">
-                                            <i class="fas fa-user-md fa-3x mb-3"></i>
-                                            <h3>Medical</h3>
-                                            <p>Medical emergencies and first aid</p>
-                                        </button>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <button class="emergency-type w-100" onclick="showEmergencyForm('accident')">
-                                            <i class="fas fa-car-crash fa-3x mb-3"></i>
-                                            <h3>Accident</h3>
-                                            <p>Vehicle accidents and collisions</p>
-                                        </button>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <button class="emergency-type w-100" onclick="showEmergencyForm('fire')">
-                                            <i class="fas fa-fire fa-3x mb-3"></i>
-                                            <h3>Fire</h3>
-                                            <p>Fire emergencies and evacuation</p>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div id="emergency-form" class="mt-5" style="display: none;">
-                                <!-- Emergency form will be loaded here -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Training Module Modal -->
-        <div class="modal fade" id="trainingModal" tabindex="-1">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Training Module</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body" id="training-content">
-                        <!-- Training content will be loaded here -->
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <footer class="footer bg-dark text-light">
             <div class="container">
                 <div class="row">
@@ -485,7 +370,7 @@
                         <div class="social-links">
                             <a href="https://x.com/Uwizeyi30479056"><i class="fab fa-twitter"></i></a>
                             <a href="https://www.facebook.com/profile.php?id=100095161301970&mibextid=ZbWKwL"><i class="fab fa-facebook"></i></a>
-                            <a href="https://www.instagram.com/_jp_oficiall?igsh=YzljYTk1ODg3Zg=="><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.instagram.com/_jp_oficiall?igshid=YzljYTk1ODg3Zg=="><i class="fab fa-instagram"></i></a>
                             <a href="uwizeyimanajp2@gmail.com"> <i class="fab fa-email"></i> </a>
                         </div>
                     </div>
@@ -499,133 +384,13 @@
         <script src="js/demo.js"></script>
         <script>
             function navigateToPage(page) {
+                // Hide all pages
                 document.getElementById('homePage').style.display = 'none';
-                document.getElementById('emergencyPage').style.display = 'none';
-                document.getElementById(page + 'Page').style.display = 'block';
-            }
 
-            function openEmergencyModal() {
-                document.getElementById('emergencyModal').classList.add('show');
-                document.body.style.overflow = 'hidden'; // Prevent scrolling
-                // Update URL without page reload
-                window.history.pushState({page: 'emergency'}, 'Emergency Response', '#emergency');
-            }
-
-            function closeEmergencyModal() {
-                document.getElementById('emergencyModal').classList.remove('show');
-                document.body.style.overflow = ''; // Restore scrolling
-                // Reset URL
-                window.history.pushState({page: 'main'}, 'Home', window.location.pathname);
-            }
-
-            function showEmergencyForm(type) {
-                const formContainer = document.getElementById('emergency-form');
-                formContainer.style.display = 'block';
-                formContainer.innerHTML = getEmergencyForm(type);
-                
-                // Scroll to form
-                formContainer.scrollIntoView({ behavior: 'smooth' });
-            }
-
-            function getEmergencyForm(type) {
-                const forms = {
-                    medical: `
-                        <h3 class="mb-4">Medical Emergency Report</h3>
-                        <form onsubmit="submitEmergency(event, 'medical')">
-                            <div class="form-group mb-3">
-                                <label>Nature of Medical Emergency</label>
-                                <select class="form-select" required>
-                                    <option value="">Select type...</option>
-                                    <option value="cardiac">Cardiac</option>
-                                    <option value="respiratory">Respiratory</option>
-                                    <option value="trauma">Trauma</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label>Location</label>
-                                <input type="text" class="form-control" placeholder="Enter location" required>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label>Patient Condition</label>
-                                <textarea class="form-control" rows="3" placeholder="Describe the patient's condition" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-danger btn-lg w-100">Submit Emergency Report</button>
-                        </form>
-                    `,
-                    accident: `
-                        <h3 class="mb-4">Accident Emergency Report</h3>
-                        <form onsubmit="submitEmergency(event, 'accident')">
-                            <div class="form-group mb-3">
-                                <label>Type of Accident</label>
-                                <select class="form-select" required>
-                                    <option value="">Select type...</option>
-                                    <option value="vehicle">Vehicle Collision</option>
-                                    <option value="pedestrian">Pedestrian Involved</option>
-                                    <option value="workplace">Workplace Accident</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label>Location</label>
-                                <input type="text" class="form-control" placeholder="Enter location" required>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label>Number of People Involved</label>
-                                <input type="number" class="form-control" min="1" required>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label>Situation Description</label>
-                                <textarea class="form-control" rows="3" placeholder="Describe the accident" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-danger btn-lg w-100">Submit Emergency Report</button>
-                        </form>
-                    `,
-                    fire: `
-                        <h3 class="mb-4">Fire Emergency Report</h3>
-                        <form onsubmit="submitEmergency(event, 'fire')">
-                            <div class="form-group mb-3">
-                                <label>Type of Fire</label>
-                                <select class="form-select" required>
-                                    <option value="">Select type...</option>
-                                    <option value="structure">Structure Fire</option>
-                                    <option value="vehicle">Vehicle Fire</option>
-                                    <option value="wildfire">Wildfire</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label>Location</label>
-                                <input type="text" class="form-control" placeholder="Enter location" required>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label>People at Risk</label>
-                                <input type="number" class="form-control" min="0" required>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label>Situation Description</label>
-                                <textarea class="form-control" rows="3" placeholder="Describe the fire situation" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-danger btn-lg w-100">Submit Emergency Report</button>
-                        </form>
-                    `
-                };
-                return forms[type] || '';
-            }
-
-            function submitEmergency(event, type) {
-                event.preventDefault();
-                // Here you would handle the emergency submission
-                alert('Emergency reported. Help is on the way!');
-                closeEmergencyModal();
-            }
-
-            // Handle browser back button
-            window.addEventListener('popstate', function(event) {
-                if (event.state && event.state.page === 'main') {
-                    closeEmergencyModal();
+                if (page === 'home') {
+                    document.getElementById('homePage').style.display = 'block';
                 }
-            });
+            }
 
             // Load featured modules
             document.addEventListener('DOMContentLoaded', function() {
